@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -12,11 +13,29 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message ="Title is mandatory")
+    private String title;
 
-    public Task(String title, String description,boolean completed) {
+    @NotBlank(message ="Description is mandatory")
+    private String description;
+
+    private boolean completed;
+
+    private int priority; // 1-5highest
+
+    private LocalDateTime dueDate; //schedule
+
+
+    private String category;
+
+
+    public Task(String title, String description,boolean completed,int priority,LocalDateTime dueDate, String category) {
         this.description = description;
         this.completed = completed;
         this.title = title;
+        this.priority = priority;
+        this.dueDate = dueDate;
+        this.category = category;
     }
 
     public Task() {
@@ -54,12 +73,27 @@ public class Task {
         this.completed = completed;
     }
 
-    @NotBlank(message ="Title is mandatory")
-    private String title;
+    public int getPriority() {
+        return priority;
+    }
 
-    @NotBlank(message ="Description is mandatory")
-    private String description;
-    private boolean completed;
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
 
 
